@@ -40,7 +40,7 @@
     async function conectarBluetooth() {
       try {
         const dispositivo = await navigator.bluetooth.requestDevice({
-          filters: [{ namePrefix: "ESP32" }],
+          acceptAllDevices: true,
           optionalServices: ["19b10000-e8f2-537e-4f6c-d104768a1214"]
         });
 
