@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mini Jogo T&aacute;til - SonicBrace</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #1a1a2e, #16213e);
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .container {
+      background-color: rgba(0, 0, 0, 0.7);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      max-width: 800px;
+      margin: 20px;
+    }
+    
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      color: #00d4ff;
+      text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+    }
+    
+    h2 {
+      font-size: 1.8rem;
+      margin-top: 0;
+      color: #ffffff;
+    }
+    
+    .subtitle {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      color: #cccccc;
+    }
+    
+    .keyboard {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 20px 0;
+    }
+    
+    .key {
+      display: inline-block;
+      width: 80px;
+      height: 200px;
+      margin: 5px;
+      border-radius: 10px;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding-bottom: 15px;
+    }
+    
+    .key:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    }
+    
+    .key:active {
+      transform: translateY(0);
+    }
+    
+    #do { background: linear-gradient(to bottom, #ff4d4d, #e74c3c); }
+    #re { background: linear-gradient(to bottom, #ff9966, #f39c12); }
+    #mi { background: linear-gradient(to bottom, #ffcc66, #f1c40f); }
+    #fa { background: linear-gradient(to bottom, #66ff66, #2ecc71); }
+    #sol { background: linear-gradient(to bottom, #66ccff, #3498db); }
+    #la { background: linear-gradient(to bottom, #cc99ff, #9b59b6); }
+    #si { background: linear-gradient(to bottom, #9999ff, #34495e); }
+    
+    .play-button {
+      background: linear-gradient(to right, #00d4ff, #008cff);
+      border: none;
+      color: white;
+      padding: 15px 40px;
+      font-size: 1.2rem;
+      border-radius: 50px;
+      cursor: pointer;
+      margin-top: 30px;
+      transition: all 0.3s;
+      box-shadow: 0 5px 15px rgba(0, 132, 255, 0.4);
+    }
+    
+    .play-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 132, 255, 0.6);
+    }
+    
+    .play-button:active {
+      transform: translateY(1px);
+    }
+    
+    .game-info {
+      margin-top: 30px;
+      font-size: 1rem;
+      color: #aaaaaa;
+      max-width: 600px;
+    }
+    
+    @media (max-width: 600px) {
+      .key {
+        width: 50px;
+        height: 150px;
+        font-size: 14px;
+      }
+      
+      h1 {
+        font-size: 2rem;
+      }
+      
+      h2 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Mini Jogo T&aacute;til</h1>
+    <h2>SonicBrace</h2>
+    <p class="subtitle">Toque uma nota e sinta a vibra&ccedil;&atilde;o correspondente!</p>
+
+    <div class="keyboard">
+      <button class="key" id="do" onclick="vibrar([100])">D&oacute;</button>
+      <button class="key" id="re" onclick="vibrar([200])">R&eacute;</button>
+      <button class="key" id="mi" onclick="vibrar([300])">Mi</button>
+      <button class="key" id="fa" onclick="vibrar([400])">F&aacute;</button>
+      <button class="key" id="sol" onclick="vibrar([500])">Sol</button>
+      <button class="key" id="la" onclick="vibrar([600])">L&aacute;</button>
+      <button class="key" id="si" onclick="vibrar([700])">Si</button>
+    </div>
+
+    <div class="game-info">
+      <p>Experimente diferentes padr&otilde;es de vibra&ccedil;&atilde;o para criar suas pr&oacute;prias m&uacute;sicas t&aacute;teis!</p>
+    </div>
+  </div>
+
+  <script>
+    function vibrar(padrao) {
+      if ("vibrate" in navigator) {
+        navigator.vibrate(padrao);
+      } else {
+        alert("Seu navegador n&atilde;o suporta vibra&ccedil;&atilde;o.");
+      }
+    }
+
+  </script>
+</body>
+</html>
