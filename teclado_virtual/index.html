@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mini Jogo T&aacute;til - SonicBrace</title>
+  <title>Mini Jogo Tátil - SonicBrace</title>
   <style>
     body {
       font-family: 'Arial', sans-serif;
@@ -80,6 +80,7 @@
     
     .key:active {
       transform: translateY(0);
+      filter: brightness(1.2);
     }
     
     #do { background: linear-gradient(to bottom, #ff4d4d, #e74c3c); }
@@ -89,28 +90,6 @@
     #sol { background: linear-gradient(to bottom, #66ccff, #3498db); }
     #la { background: linear-gradient(to bottom, #cc99ff, #9b59b6); }
     #si { background: linear-gradient(to bottom, #9999ff, #34495e); }
-    
-    .play-button {
-      background: linear-gradient(to right, #00d4ff, #008cff);
-      border: none;
-      color: white;
-      padding: 15px 40px;
-      font-size: 1.2rem;
-      border-radius: 50px;
-      cursor: pointer;
-      margin-top: 30px;
-      transition: all 0.3s;
-      box-shadow: 0 5px 15px rgba(0, 132, 255, 0.4);
-    }
-    
-    .play-button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(0, 132, 255, 0.6);
-    }
-    
-    .play-button:active {
-      transform: translateY(1px);
-    }
     
     .game-info {
       margin-top: 30px;
@@ -143,29 +122,67 @@
     <p class="subtitle">Toque uma nota e sinta a vibra&ccedil;&atilde;o correspondente!</p>
 
     <div class="keyboard">
-      <button class="key" id="do" onclick="vibrar([700])">D&oacute;</button>
-      <button class="key" id="re" onclick="vibrar([600])">R&eacute;</button>
-      <button class="key" id="mi" onclick="vibrar([500])">Mi</button>
-      <button class="key" id="fa" onclick="vibrar([400])">F&aacute;</button>
-      <button class="key" id="sol" onclick="vibrar([300])">Sol</button>
-      <button class="key" id="la" onclick="vibrar([200])">L&aacute;</button>
-      <button class="key" id="si" onclick="vibrar([100])">Si</button>
+      <button class="key" id="do">D&oacute;</button>
+      <button class="key" id="re">R&eacute;</button>
+      <button class="key" id="mi">Mi</button>
+      <button class="key" id="fa">F&aacute;</button>
+      <button class="key" id="sol">Sol</button>
+      <button class="key" id="la">L&aacute;</button>
+      <button class="key" id="si">Si</button>
     </div>
 
     <div class="game-info">
-      <p>Experimente diferentes padr&otilde;es de vibra&ccedil;&atilde;o para criar suas pr&oacute;prias m&uacute;sicas t&aacute;teis!</p>
+      <p>Experimente diferentes notas para sentir diferentes padr&otilde;es de vibra&ccedil;&atilde;o!</p>
     </div>
   </div>
 
   <script>
-    function vibrar(padrao) {
-      if ("vibrate" in navigator) {
-        navigator.vibrate(padrao);
-      } else {
-        alert("Seu navegador n&atilde;o suporta vibra&ccedil;&atilde;o.");
+    // Configuração de vibração para cada tecla
+    const vibrationPatterns = {
+      do: [700],
+      re: [600],
+      mi: [500],
+      fa: [400],
+      sol: [300],
+      la: [200],
+      si: [100]
+    };
+    
+    // Verifica se o navegador suporta a API de vibração
+    const supportsVibration = 'vibrate' in navigator;
+    
+    if (!supportsVibration) {
+      document.querySelector('.subtitle').textContent += " (Seu navegador não suporta vibração)";
+    }
+    
+    // Adiciona eventos de toque/clique a todas as teclas
+    document.querySelectorAll('.key').forEach(key => {
+      // Para dispositivos com touch (celulares)
+      key.addEventListener('touchstart', function(e) {
+        e.preventDefault(); // Previne comportamento padrão
+        vibrate(this.id);
+      });
+      
+      // Para dispositivos com mouse (computadores)
+      key.addEventListener('mousedown', function() {
+        vibrate(this.id);
+      });
+    });
+    
+    // Função para ativar a vibração
+    function vibrate(keyId) {
+      if (!supportsVibration) return;
+      
+      try {
+        // Cancela qualquer vibração anterior
+        navigator.vibrate(0);
+        
+        // Ativa a nova vibração
+        navigator.vibrate(vibrationPatterns[keyId]);
+      } catch (e) {
+        console.error("Erro ao ativar vibração:", e);
       }
     }
-
   </script>
 </body>
 </html>
